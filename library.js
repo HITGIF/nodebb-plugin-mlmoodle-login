@@ -5,7 +5,7 @@ var	passport = module.parent.require('passport'),
 	plugin = {};
 
 plugin.login = function() {
-	winston.info('[login] Registering new local login strategy');
+	// winston.info('[login] Registering new local login strategy');
 	passport.use(new passportLocal({passReqToCallback: true}, plugin.continueLogin));
 };
 
