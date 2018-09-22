@@ -24,5 +24,8 @@
   "readmeFilename": "README.md",
   "nbbpm": {
     "compatibility": "^1.0.0"
+  },
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
   }
 }
