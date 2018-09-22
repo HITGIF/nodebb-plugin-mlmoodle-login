@@ -1,0 +1,28 @@
+{
+  "name": "nodebb-plugin-mlmoodle-login",
+  "version": "0.0.1",
+  "description": "Login with ML Moodle",
+  "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hitgif/nodebb-plugin-mlmoodle-login"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "ml",
+    "moodle"
+  ],
+  "author": {
+    "name": "HITGIF",
+    "email": "carbonylgp@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hitgif/nodebb-plugin-mlmoodle-login/issues"
+  },
+  "readmeFilename": "README.md",
+  "nbbpm": {
+    "compatibility": "^1.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+	"id": "nodebb-plugin-mlmoodle-login",
+	"url": "https://github.com/HITGIF/nodebb-plugin-mlmoodle-login",
+	"library": "./library.js",
+	"hooks": [
+		{
+			"hook": "action:auth.overrideLogin", "method": "login"
+		}
+	]
+}
