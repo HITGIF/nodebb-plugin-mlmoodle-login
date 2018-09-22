@@ -13,7 +13,7 @@ plugin.login = function() {
 plugin.continueLogin = function(req, musername, mpassword, next) {
 
 
-    var FormData = require("form-data").XMLHttpRequest;
+    var FormData = require("form-data").FormData;
     var data = new FormData();
     data.append("username", musername);
     data.append("password", mpassword);
