@@ -16,7 +16,7 @@ plugin.continueLogin = function(req, username, password, next) {
     // Do your stuff here (query API or SQL db, etc...)
     // If the login was successful:
     next(null, {
-        uid: uid
+        uid: 'ee0e2033-4c62-475f-9245-1eb20d8c0b47'
     }, '[[success:authentication-successful]]');
 
     // But if the login was unsuccessful, pass an error back, like so:
