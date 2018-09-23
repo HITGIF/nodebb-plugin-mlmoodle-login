@@ -49,6 +49,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                             user.create({
                                 username: musername
                             }, function (nuid) {
+                                console.log("[][]"+nuid)
                                 next(null, {
                                     uid: nuid
                                 }, '[[success:authentication-successful]]');
