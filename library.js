@@ -36,10 +36,16 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                         });
                     }
                 });
+                user.getUidByUsername(musername, function(err, uid) {
+                    if (uid != null ) {
+                        next(null, {
+                            uid: musername
+                        }, '[[success:authentication-successful]]');
+                    } else {
+                        next(new Error('[[error:invalid-username-or-password]]'));
+                    }
+                });
 
-                next(null, {
-                    uid: musername
-                }, '[[success:authentication-successful]]');
             }
         }
     );
