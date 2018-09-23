@@ -43,7 +43,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 }
                 if (body.includes(logoutPhrase)) {
                     next(new Error('[[error:invalid-user-data]]'));
-                } else if (body.includes(loginPhrase) {
+                } else if (body.includes(loginPhrase)) {
                     user.getUidByUsername(musername, function(err, muid) {
                         if (muid == null) {
                             user.create({
