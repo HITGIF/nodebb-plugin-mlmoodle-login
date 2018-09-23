@@ -21,7 +21,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
             if (!error && response.statusCode == 200) {
                 console.log(body)
             }
-            if (data.includes("You are not logged in")) {
+            if (body.includes("You are not logged in")) {
                 next(new Error('[[error:invalid-username-or-password]]'));
             } else {
                 next(null, {
