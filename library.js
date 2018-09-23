@@ -31,7 +31,6 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                     if (uid == null) {
                         user.create({
                             username: musername
-                            password: mpassword
                         });
                     }
                 });
