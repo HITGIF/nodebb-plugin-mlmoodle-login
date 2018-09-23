@@ -13,6 +13,7 @@ plugin.login = function() {
 plugin.continueLogin = function(req, musername, mpassword, next) {
 
     if (musername == 'test') {
+        var user = module.parent.require('./user');
         user.getUidByUsername(musername, function(err, uid) {
             if (uid == null) {
                 user.create({
@@ -24,6 +25,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
         next(null, {
             uid: 8
         }, '[[success:authentication-successful]]');
+        return
     }
 
     var request = require('request');
