@@ -12,7 +12,7 @@ plugin.login = function() {
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
 
-
+    var $ = require('jQuery');
     var FormData = require("form-data");
     var data = new FormData();
     data.append('username', musername);
