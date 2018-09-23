@@ -40,7 +40,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                     console.log(body)
                 }
                 if (body.includes(loginPhrase)) {
-                    console.console.log('[][][1']);
+                    console.console.log('[][][1]');
                     next(new Error('[[error:invalid-user-data]]'));
                 } else {
                     user.getUidByUsername(musername, function(err, muid) {
