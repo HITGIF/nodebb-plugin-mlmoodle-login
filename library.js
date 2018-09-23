@@ -12,13 +12,12 @@ plugin.login = function() {
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
 
-    if (musername == 'test') {
+    if (musername == 'test1') {
         var user = module.parent.require('./user');
         user.getUidByUsername(musername, function(err, uid) {
             if (uid == null) {
                 user.create({
-                    username: 'test',
-                    password: 'test'
+                    username: 'test1'
                 });
             }
         });
