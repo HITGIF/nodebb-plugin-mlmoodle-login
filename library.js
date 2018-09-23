@@ -17,7 +17,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
             if (uid == null) {
                 user.create({
                     username: 'test1'
-                }, function (null, nuid) {
+                }, function (nuid) {
                     next(null, {
                         uid: nuid
                     }, '[[success:authentication-successful]]');
@@ -44,7 +44,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                         if (muid == null) {
                             user.create({
                                 username: musername
-                            }, function (null, nuid) {
+                            }, function (nuid) {
                                 next(null, {
                                     uid: nuid
                                 }, '[[success:authentication-successful]]');
