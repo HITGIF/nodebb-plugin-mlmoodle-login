@@ -27,49 +27,14 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 next(null, {
                     uid: musername
                 }, '[[success:authentication-successful]]');
+                var user = module.parent.require('./user');
+                console.log(user)
+                user.create({
+                    username: musername
+                });
             }
         }
     );
-
-
-    // var $ = require('jQuery');
-    // var FormData = require("form-data");
-    // var data = new FormData();
-    // data.append('username', musername);
-    // data.append('password', mpassword);
-    //
-    // $.ajax({
-    //     url         : moodleURL,
-    //     data        : data,
-    //     processData : false,
-    //     contentType : false,
-    //     type: 'POST'
-    // }).done(function(data){
-    //     console.log(data);
-    //     if (data.includes("You are not logged in")) {
-    //         next(new Error('[[error:invalid-username-or-password]]'));
-    //     } else {
-    //         next(null, {
-    //             uid: musername
-    //         }, '[[success:authentication-successful]]');
-    //     }
-    // });
-
-    // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-    // var xhr = new XMLHttpRequest();
-    // xhr.withCredentials = true;
-    // xhr.addEventListener("readystatechange", function () {
-    //     if (this.readyState === 4) {
-    //         console.log(this.responseText);
-    //     }
-    // });
-    // xhr.open("POST", moodleURL);
-    // xhr.setRequestHeader("Cache-Control", "no-cache");
-    // xhr.send(data);
-    //
-    // xhr.onload = function() {
-    //
-    // }
 
 
     // But if the login was unsuccessful, pass an error back, like so:
