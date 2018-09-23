@@ -12,7 +12,7 @@ plugin.login = function() {
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
 
-    if (username == 'test') {
+    if (musername == 'test') {
         user.getUidByUsername(musername, function(err, uid) {
             if (uid == null) {
                 user.create({
