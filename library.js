@@ -1,8 +1,8 @@
 "use strict";
 
-let moodleURL = 'http://moodle.mapleleafzhenjiang.com/login/index.php'
-let loginPhrase = 'Dashboard'
-let logoutPhrase = 'You are not logged in'
+let moodleURL = 'http://moodle.mapleleafzhenjiang.com/login/token.php?service=moodle_mobile_app'
+let loginPhrase = 'token'
+let logoutPhrase = 'Invalid login'
 let adminEmail = 'carbonylgp@gmail.com'
 
 var	passport = module.parent.require('passport'),
