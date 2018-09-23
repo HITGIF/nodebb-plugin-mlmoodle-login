@@ -22,9 +22,12 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 });
             }
         });
-        next(null, {
-            uid: 8
-        }, '[[success:authentication-successful]]');
+
+        user.getUidByUsername(musername, function(err, muid) {
+            next(null, {
+                uid: muid
+            }, '[[success:authentication-successful]]');
+        });
         return
     }
 
