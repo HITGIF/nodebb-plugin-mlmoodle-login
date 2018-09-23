@@ -31,6 +31,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                     if (uid == null) {
                         user.create({
                             username: musername
+                            email: '1@why_are_u_seeing_this.com'
                         });
                     }
                 });
