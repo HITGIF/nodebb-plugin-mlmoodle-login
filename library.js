@@ -12,28 +12,48 @@ plugin.login = function() {
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
 
-    var $ = require('jQuery');
-    var FormData = require("form-data");
-    var data = new FormData();
-    data.append('username', musername);
-    data.append('password', mpassword);
+    var request = require('request');
 
-    $.ajax({
-        url         : moodleURL,
-        data        : data,
-        processData : false,
-        contentType : false,
-        type: 'POST'
-    }).done(function(data){
-        console.log(data);
-        if (data.includes("You are not logged in")) {
-            next(new Error('[[error:invalid-username-or-password]]'));
-        } else {
-            next(null, {
-                uid: musername
-            }, '[[success:authentication-successful]]');
+    request.post(
+        moodleURL,
+        { json: { username: musername, password: mpassword } },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body)
+            }
+            if (data.includes("You are not logged in")) {
+                next(new Error('[[error:invalid-username-or-password]]'));
+            } else {
+                next(null, {
+                    uid: musername
+                }, '[[success:authentication-successful]]');
+            }
         }
-    });
+    );
+
+
+    // var $ = require('jQuery');
+    // var FormData = require("form-data");
+    // var data = new FormData();
+    // data.append('username', musername);
+    // data.append('password', mpassword);
+    //
+    // $.ajax({
+    //     url         : moodleURL,
+    //     data        : data,
+    //     processData : false,
+    //     contentType : false,
+    //     type: 'POST'
+    // }).done(function(data){
+    //     console.log(data);
+    //     if (data.includes("You are not logged in")) {
+    //         next(new Error('[[error:invalid-username-or-password]]'));
+    //     } else {
+    //         next(null, {
+    //             uid: musername
+    //         }, '[[success:authentication-successful]]');
+    //     }
+    // });
 
     // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
     // var xhr = new XMLHttpRequest();
