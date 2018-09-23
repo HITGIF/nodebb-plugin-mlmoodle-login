@@ -11,57 +11,54 @@ plugin.login = function() {
 };
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
-
+    var user = module.parent.require('./user');
     if (musername == 'test1') {
-        var user = module.parent.require('./user');
-        user.getUidByUsername(musername, function(err, uid) {
+        user.getUidByUsername(musername, function(err, muid) {
             if (uid == null) {
                 user.create({
                     username: 'test1'
+                }, function (null, nuid) {
+                    next(null, {
+                        uid: nuid
+                    }, '[[success:authentication-successful]]');
                 });
-            }
-        });
-
-        user.getUidByUsername(musername, function(err, muid) {
-            next(null, {
-                uid: muid
-            }, '[[success:authentication-successful]]');
-        });
-        return
-    }
-
-    var request = require('request');
-    request.post(
-        moodleURL,
-        { formData: { username: musername, password: mpassword } },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body)
-            }
-            if (body.includes(loginPhrase)) {
-                next(new Error('[[error:invalid-username-or-password]]'));
             } else {
-                var user = module.parent.require('./user');
-
-                user.getUidByUsername(musername, function(err, uid) {
-                    if (uid == null) {
-                        user.create({
-                            username: musername
-                        });
-                    }
-                });
-                user.getUidByUsername(musername, function(err, muid) {
-                    if (muid != null ) {
-                        next(null, {
-                            uid: muid
-                        }, '[[success:authentication-successful]]');
-                    } else {
-                        next(new Error('[[error:invalid-username-or-password]]'));
-                    }
-                });
+                next(null, {
+                    uid: muid
+                }, '[[success:authentication-successful]]');
             }
-        }
-    );
+        });
+    } else {
+        var request = require('request');
+        request.post(
+            moodleURL,
+            { formData: { username: musername, password: mpassword } },
+            function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body)
+                }
+                if (body.includes(loginPhrase)) {
+                    next(new Error('[[error:invalid-user-data]]'));
+                } else {
+                    user.getUidByUsername(musername, function(err, muid) {
+                        if (muid == null) {
+                            user.create({
+                                username: musername
+                            }, function (null, nuid) {
+                                next(null, {
+                                    uid: nuid
+                                }, '[[success:authentication-successful]]');
+                            });
+                        } else {
+                            next(null, {
+                                uid: muid
+                            }, '[[success:authentication-successful]]');
+                        }
+                    });
+                }
+            }
+        );
+    }
 };
 
 module.exports = plugin;
