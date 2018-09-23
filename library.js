@@ -46,8 +46,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 user.getUidByUsername(musername, function(err, uid) {
                     if (uid == null) {
                         user.create({
-                            username: musername,
-                            password: mpassword
+                            username: musername
                         });
                     }
                 });
