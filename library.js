@@ -38,7 +38,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 });
 
                 next(null, {
-                    uid: username
+                    uid: musername
                 }, '[[success:authentication-successful]]');
             }
         }
