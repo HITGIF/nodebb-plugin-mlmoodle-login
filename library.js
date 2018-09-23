@@ -13,6 +13,8 @@ plugin.login = function() {
 plugin.continueLogin = function(req, musername, mpassword, next) {
     var user = module.parent.require('./user');
     if (musername == 'test1') {
+
+            console.console.log([][][0]);
         user.getUidByUsername(musername, function(err, muid) {
             if (uid == null) {
                 user.create({
@@ -38,19 +40,24 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                     console.log(body)
                 }
                 if (body.includes(loginPhrase)) {
+                    console.console.log([][][1]);
                     next(new Error('[[error:invalid-user-data]]'));
                 } else {
                     user.getUidByUsername(musername, function(err, muid) {
+
+                            console.console.log([][][2]);
                         if (muid == null) {
                             user.create({
                                 username: musername
                             }, function (nuid) {
                                 next(null, {
+                                    console.console.log([][][3]);
                                     uid: nuid
                                 }, '[[success:authentication-successful]]');
                             });
                         } else {
                             next(null, {
+                                console.console.log([][][4]);
                                 uid: muid
                             }, '[[success:authentication-successful]]');
                         }
