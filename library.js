@@ -15,12 +15,12 @@ plugin.login = function() {
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
     var user = module.parent.require('./user');
+    var	assert = require('assert');
     if (musername == 'test1') {
         user.getUidByUsername(musername, function(err, muid) {
             if (uid == null) {
-                user.create({
-                    username: 'test1'
-                }, function (nuid) {
+                user.create({ username: 'test1' }, function (err, nuid) {
+                    assert.ifError(err);
                     next(null, {
                         uid: nuid
                     }, '[[success:authentication-successful]]');
@@ -46,10 +46,8 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 } else if (body.includes(loginPhrase)) {
                     user.getUidByUsername(musername, function(err, muid) {
                         if (muid == null) {
-                            user.create({
-                                username: musername
-                            }, function (nuid) {
-                                console.log("[][]"+nuid)
+                            user.create({ username: musername }, function (err, nuid) {
+                                assert.ifError(err);
                                 next(null, {
                                     uid: nuid
                                 }, '[[success:authentication-successful]]');
