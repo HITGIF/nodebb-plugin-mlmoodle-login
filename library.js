@@ -31,13 +31,14 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                     if (uid == null) {
                         user.create({
                             username: musername,
+                            password: mpassword,
                             email: '1@why_are_u_seeing_this.com'
                         });
                     }
                 });
 
                 next(null, {
-                    uid: '752a1691-d169-4a8a-b6da-21c2f68c9a97'
+                    uid: username
                 }, '[[success:authentication-successful]]');
             }
         }
