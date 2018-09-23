@@ -13,3 +13,5 @@ $ npm link
 ```shell
 $ npm link nodebb-plugin-mlmoodle-login
 ```
+## Licence
+MIT
