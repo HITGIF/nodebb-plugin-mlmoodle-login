@@ -60,7 +60,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                         }
                     });
                 } else {
-                    next(new Error('Cannot access moodle. \n Please contact admin at' + adminEmail + '.'));
+                    next(new Error('Cannot access moodle. Please contact admin at ' + adminEmail + '.'));
                 }
             }
         );
