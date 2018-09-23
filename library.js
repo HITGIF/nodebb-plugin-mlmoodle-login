@@ -24,14 +24,14 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
             if (body.includes("You are not logged in")) {
                 next(new Error('[[error:invalid-username-or-password]]'));
             } else {
-                next(null, {
-                    uid: musername
-                }, '[[success:authentication-successful]]');
                 var user = module.parent.require('./user');
                 console.log(user)
                 user.create({
                     username: musername
                 });
+                next(null, {
+                    uid: musername
+                }, '[[success:authentication-successful]]');
             }
         }
     );
