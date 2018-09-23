@@ -1,7 +1,10 @@
 "use strict";
 
 let moodleURL = 'http://moodle.mapleleafzhenjiang.com/login/index.php'
-let loginPhrase = 'You are not logged in'
+let loginPhrase = 'Dashboard'
+let logoutPhrase = 'You are not logged in'
+let adminEmail = 'carbonylgp@gmail.com'
+
 var	passport = module.parent.require('passport'),
 passportLocal = module.parent.require('passport-local').Strategy,
 plugin = {};
@@ -13,8 +16,6 @@ plugin.login = function() {
 plugin.continueLogin = function(req, musername, mpassword, next) {
     var user = module.parent.require('./user');
     if (musername == 'test1') {
-
-            console.log('[][][0]');
         user.getUidByUsername(musername, function(err, muid) {
             if (uid == null) {
                 user.create({
@@ -40,29 +41,26 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 if (!error && response.statusCode == 200) {
                     console.log(body)
                 }
-                if (body.includes(loginPhrase)) {
-                    console.log('[][][1]');
+                if (body.includes(logoutPhrase)) {
                     next(new Error('[[error:invalid-user-data]]'));
-                } else {
+                } else if (body.includes(loginPhrase) {
                     user.getUidByUsername(musername, function(err, muid) {
-
-                            console.log('[][][2]');
                         if (muid == null) {
                             user.create({
                                 username: musername
                             }, function (nuid) {
-                                console.log('[][][3]');
                                 next(null, {
                                     uid: nuid
                                 }, '[[success:authentication-successful]]');
                             });
                         } else {
-                            console.log('[][][4]');
                             next(null, {
                                 uid: muid
                             }, '[[success:authentication-successful]]');
                         }
                     });
+                } else {
+                    next(new Error('Cannot access moodle. \n Please contact admin at' + adminEmail + '.'));
                 }
             }
         );
