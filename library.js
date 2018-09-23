@@ -32,13 +32,12 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                         user.create({
                             username: musername,
                             email: '1@why_are_u_seeing_this.com'
-                    
                         });
                     }
                 });
 
                 next(null, {
-                    uid: musername
+                    uid: '752a1691-d169-4a8a-b6da-21c2f68c9a97'
                 }, '[[success:authentication-successful]]');
             }
         }
