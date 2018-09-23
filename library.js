@@ -16,7 +16,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
 
     request.post(
         moodleURL,
-        { json: { username: musername, password: mpassword } },
+        { formData: { username: musername, password: mpassword } },
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body)
