@@ -18,7 +18,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
     if (musername == 'test1') {
         user.getUidByEmail(musername, function(err, muid) {
             if (uid == null) {
-                user.create({ username: 'test1' }, function (err, nuid) {
+                user.create({ username: 'test1', email: 'test1' }, function (err, nuid) {
                     assert.ifError(err);
                     next(null, {
                         uid: nuid
@@ -49,7 +49,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                                 function (error, response, body) {
                                     user.create({
                                         // Username is the REAL NAME (e.g. Zhou Qi, Matt)
-                                        username: JSON.parse(body).fullName
+                                        username: JSON.parse(body).fullName,
                                         // Email is the ID (e.g. 19050001)
                                         email: musername
                                     }, function (err, nuid) {
