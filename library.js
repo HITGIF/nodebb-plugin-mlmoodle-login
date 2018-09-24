@@ -13,9 +13,13 @@ plugin.login = function() {
 };
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
+    var errorEl = $('#login-error-notify');
     var user = module.parent.require('./user');
     var	assert = require('assert');
-    var util = require('util')
+    var util = require('util');
+    if (musername.includes('@')) {
+        next(new Error('[[error:use-id-not-email]]'));
+    }
     if (musername == 'test1') {
         user.getUidByEmail(musername, function(err, muid) {
             if (uid == null) {
