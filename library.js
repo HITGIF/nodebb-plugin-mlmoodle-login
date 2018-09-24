@@ -43,7 +43,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                 if (error) {
                     next(new Error('[[error:invalid-user-data]]'));
                 } else if (token) {
-                    user.getUidByEmail(musername, function(err, muid) {
+                    user.getUidByEmail(musername + '@moodle', function(err, muid) {
                         if (muid == null) {
                             request.get(
                                 util.format(moodleRealNameURL, token, musername),
@@ -52,7 +52,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                                         // Username is the REAL NAME (e.g. Zhou Qi, Matt)
                                         username: JSON.parse(body)[0].fullname,
                                         // Email is the ID (e.g. 19050001)
-                                        email: musername
+                                        email: musername + '@moodle'
                                     }, function (err, nuid) {
                                         assert.ifError(err);
                                         next(null, {
