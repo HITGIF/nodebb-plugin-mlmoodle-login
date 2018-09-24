@@ -1,8 +1,7 @@
 "use strict";
 
-let moodleURL = 'http://moodle.mapleleafzhenjiang.com/login/token.php?service=moodle_mobile_app'
-let loginPhrase = 'token'
-let logoutPhrase = 'Invalid login'
+let moodleTokenURL = 'http://moodle.mapleleafzhenjiang.com/login/token.php?service=moodle_mobile_app'
+let moodleRealNameURL = 'http://moodle.mapleleafzhenjiang.com/webservice/rest/server.php?wstoken=%s&wsfunction=core_user_get_users_by_field&moodlewsrestformat=json&field=idnumber&values[0]=%s'
 let adminEmail = 'carbonylgp@gmail.com'
 
 var	passport = module.parent.require('passport'),
@@ -17,7 +16,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
     var user = module.parent.require('./user');
     var	assert = require('assert');
     if (musername == 'test1') {
-        user.getUidByUsername(musername, function(err, muid) {
+        user.getUidByEmail(musername, function(err, muid) {
             if (uid == null) {
                 user.create({ username: 'test1' }, function (err, nuid) {
                     assert.ifError(err);
@@ -34,23 +33,33 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
     } else {
         var request = require('request');
         request.post(
-            moodleURL,
+            moodleTokenURL,
             { formData: { username: musername, password: mpassword } },
             function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    console.log(body)
-                }
-                if (body.includes(logoutPhrase)) {
+                let bd = JSON.parse(body);
+                var error = bd.error;
+                var token = bd.token;
+                if (error) {
                     next(new Error('[[error:invalid-user-data]]'));
-                } else if (body.includes(loginPhrase)) {
-                    user.getUidByUsername(musername, function(err, muid) {
+                } else if (token) {
+                    user.getUidByEmail(musername, function(err, muid) {
                         if (muid == null) {
-                            user.create({ username: musername }, function (err, nuid) {
-                                assert.ifError(err);
-                                next(null, {
-                                    uid: nuid
-                                }, '[[success:authentication-successful]]');
-                            });
+                            request.get(
+                                utils.format(moodleRealNameURL, token, musername),
+                                function (error, response, body) {
+                                    user.create({
+                                        // Username is the REAL NAME (e.g. Zhou Qi, Matt)
+                                        username: JSON.parse(body).fullName
+                                        // Email is the ID (e.g. 19050001)
+                                        email: musername
+                                    }, function (err, nuid) {
+                                        assert.ifError(err);
+                                        next(null, {
+                                            uid: nuid
+                                        }, '[[success:authentication-successful]]');
+                                    });
+                                }
+                            );
                         } else {
                             next(null, {
                                 uid: muid
