@@ -50,7 +50,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                                 function (error, response, body) {
                                     user.create({
                                         // Username is the REAL NAME (e.g. Zhou Qi, Matt)
-                                        username: JSON.parse(body).fullname,
+                                        username: JSON.parse(body)[0].fullname,
                                         // Email is the ID (e.g. 19050001)
                                         email: musername
                                     }, function (err, nuid) {
