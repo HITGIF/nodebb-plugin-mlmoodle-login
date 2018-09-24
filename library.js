@@ -15,6 +15,7 @@ plugin.login = function() {
 plugin.continueLogin = function(req, musername, mpassword, next) {
     var user = module.parent.require('./user');
     var	assert = require('assert');
+    var util = require('util')
     if (musername == 'test1') {
         user.getUidByEmail(musername, function(err, muid) {
             if (uid == null) {
@@ -45,7 +46,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                     user.getUidByEmail(musername, function(err, muid) {
                         if (muid == null) {
                             request.get(
-                                utils.format(moodleRealNameURL, token, musername),
+                                util.format(moodleRealNameURL, token, musername),
                                 function (error, response, body) {
                                     user.create({
                                         // Username is the REAL NAME (e.g. Zhou Qi, Matt)
