@@ -49,8 +49,8 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
                                 util.format(moodleRealNameURL, token, musername),
                                 function (error, response, body) {
                                     user.create({
-                                        // Username is the REAL NAME (e.g. Zhou Qi, Matt)
-                                        username: JSON.parse(body)[0].fullname,
+                                        // Username is the REAL NAME (e.g. ZhouQi_Matt)
+                                        username: JSON.parse(body)[0].fullname.replace(', ', '').replace(' ', '_'),
                                         // Email is the ID (e.g. 19050001)
                                         email: musername + '@moodle'
                                     }, function (err, nuid) {
