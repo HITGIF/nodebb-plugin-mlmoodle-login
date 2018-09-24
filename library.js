@@ -13,7 +13,6 @@ plugin.login = function() {
 };
 
 plugin.continueLogin = function(req, musername, mpassword, next) {
-    var errorEl = $('#login-error-notify');
     var user = module.parent.require('./user');
     var	assert = require('assert');
     var util = require('util');
