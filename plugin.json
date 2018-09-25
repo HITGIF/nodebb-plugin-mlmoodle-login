@@ -2,7 +2,7 @@
 	"id": "nodebb-plugin-mlmoodle-login",
 	"url": "https://github.com/HITGIF/nodebb-plugin-mlmoodle-login",
 	"library": "./library.js",
-    "languages": "languages",
+    "languages": "public/languages",
     "defaultLang": "en-US",
 	"hooks": [
 		{
