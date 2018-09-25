@@ -18,7 +18,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
     var util = require('util');
     if (musername.includes('@')) {
         var translator = require.main.require('./public/src/modules/translator');
-        translator.translate('[[error:use-id-not-email]]', function(translated) {
+        translator.translate('[[mlmoodle:use-id-not-email]]', function(translated) {
             next(new Error(translated));
         });
         return
