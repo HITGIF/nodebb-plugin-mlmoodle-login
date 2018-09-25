@@ -17,7 +17,11 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
     var	assert = require('assert');
     var util = require('util');
     if (musername.includes('@')) {
-        next(new Error('[[error:use-id-not-email]]'));
+        var translator = require.main.require('./public/src/modules/translator');
+        translator.translate('[[error:use-id-not-email]]', function(translated) {
+            next(new Error(translated));
+        });
+        return
     }
     if (musername == 'test1') {
         user.getUidByEmail(musername, function(err, muid) {
