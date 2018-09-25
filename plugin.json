@@ -2,11 +2,11 @@
 	"id": "nodebb-plugin-mlmoodle-login",
 	"url": "https://github.com/HITGIF/nodebb-plugin-mlmoodle-login",
 	"library": "./library.js",
-    "languages": "public/languages",
-    "defaultLang": "en-US",
 	"hooks": [
 		{
 			"hook": "action:auth.overrideLogin", "method": "login"
 		}
-	]
+	],
+    "languages": "languages",
+    "defaultLang": "en-US"
 }

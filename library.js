@@ -17,7 +17,7 @@ plugin.continueLogin = function(req, musername, mpassword, next) {
     var	assert = require('assert');
     var util = require('util');
     if (musername.includes('@')) {
-        next(new Error('[[mlmoodle:use-id-not-email]]'));
+        next(new Error('[[mlmoodle:id]]'));
         return
     }
     if (musername == 'test1') {
